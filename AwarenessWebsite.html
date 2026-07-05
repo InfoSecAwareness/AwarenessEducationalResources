@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Awareness Content</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --color-brilliant-azure: #0f88ff;
+      --color-slate-blue: #6c6eb6;
+      --color-sky-blue: #66c7f4;
+      --color-chartreuse: #b8ff00;
+      --color-white: #ffffff;
+      --color-black: #000000;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brilliant-azure': '#0f88ff',
+            'slate-blue': '#6c6eb6',
+            'sky-blue': '#66c7f4',
+            'chartreuse': '#b8ff00'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white text-black" style="background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);">
+  <div class="max-w-6xl mx-auto py-8 px-4">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold mb-2" style="color: #0f88ff;">Awareness Content</h1>
+      <p style="color: #6c6eb6;" class="text-lg font-medium">Welcome to my awareness platform. <br> Here I provide a collection of educational material that I use for information security awareness training.</p>
+    </div>
+
+    <!-- Filter -->
+    <div class="rounded-lg shadow-lg p-6 mb-6" style="background-color: #ffffff; border-left: 4px solid #0f88ff;">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+          <label class="block text-sm font-semibold mb-2" style="color: #6c6eb6;">Search</label>
+          <input 
+            type="text" 
+            id="search" 
+            placeholder="Search content..."
+            style="border: 2px solid #66c7f4; color: #000000;"
+            class="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2" 
+            onfocus="this.style.borderColor='#0f88ff'; this.style.boxShadow='0 0 0 3px rgba(15,136,255,0.1)'"
+            onblur="this.style.borderColor='#66c7f4'; this.style.boxShadow='none'"
+          >
+        </div>
+        
+        <div>
+          <label class="block text-sm font-semibold mb-2" style="color: #6c6eb6;">Tag</label>
+          <select id="tag" style="border: 2px solid #66c7f4; color: #000000;" class="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2">
+            <option value="">All Tags</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-2" style="color: #6c6eb6;">Publisher</label>
+          <select id="publisher" style="border: 2px solid #66c7f4; color: #000000;" class="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2">
+            <option value="">All Publishers</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-2" style="color: #6c6eb6;">Language</label>
+          <select id="language" style="border: 2px solid #66c7f4; color: #000000;" class="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2">
+            <option value="">All Languages</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Result Count -->
+    <div class="mb-4">
+      <p style="color: #6c6eb6;" class="text-lg font-semibold">Found Content: <span id="count" style="color: #0f88ff;">0</span></p>
+    </div>
+
+    <!-- Table -->
+    <div class="rounded-lg shadow-lg overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead style="background-color: #0f88ff; color: #ffffff;">
+            <tr id="tableHead">
+              <th class="px-4 py-4 text-left text-sm font-bold w-8"></th>
+              <th class="px-6 py-4 text-left text-sm font-bold cursor-pointer select-none" data-field="name" onclick="setSort('name')">Title<span class="sort-arrow"></span></th>
+              <th class="px-6 py-4 text-left text-sm font-bold cursor-pointer select-none" data-field="tag" onclick="setSort('tag')">Tag<span class="sort-arrow"></span></th>
+              <th class="px-6 py-4 text-left text-sm font-bold cursor-pointer select-none" data-field="language" onclick="setSort('language')">Language<span class="sort-arrow"></span></th>
+              <th class="px-6 py-4 text-left text-sm font-bold cursor-pointer select-none" data-field="publisher" onclick="setSort('publisher')">Publisher<span class="sort-arrow"></span></th>
+              <th class="px-6 py-4 text-left text-sm font-bold cursor-pointer select-none" data-field="price" onclick="setSort('price')">Price<span class="sort-arrow"></span></th>
+              <th class="px-6 py-4 text-left text-sm font-bold">Link</th>
+              <th class="px-6 py-4 text-left text-sm font-bold cursor-pointer select-none" data-field="created_at" onclick="setSort('created_at')">Date<span class="sort-arrow"></span></th>
+            </tr>
+          </thead>
+          <tbody id="table" style="background-color: #ffffff;">
+            <!-- Rows inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+<!-- Footer -->
+<footer class="mt-12 border-t-2" style="border-color: #66c7f4; background-color: #f7faff;">
+  <div class="max-w-6xl mx-auto py-6 px-4">
+    <p style="color: #6c6eb6;" class="text-center text-sm">
+      <span class="font-semibold">Impressum:</span> 
+      <a href="mailto:InfoSecAwarenessPlatformdotcom@protonmail.com" class="hover:underline font-semibold" style="color: #0f88ff;">
+        InfoSecAwarenessPlatformdotcom@protonmail.com
+      </a>
+    </p>
+  </div>
+</footer>
+
+  </div>
+
+  <script>
+    // Sample data
+    const allData = [
+      {
+        id: 1,
+        created_at: '',
+        name: 'Tips for Safe Social Media Usage',
+        description: 'Social networks allow you to communicate with family, friends, colleagues and acquaintances, share your photos and videos and much more. However, you should not underestimate the dangers of social networks – such as identity theft or spying on private information. We have compiled easy-to-implement tips to help you secure your social life on the internet.',
+        link: 'https://www.bsi.bund.de/DE/Themen/Verbraucherinnen-und-Verbraucher/Informationen-und-Empfehlungen/Onlinekommunikation/Soziale-Netzwerke/Sichere-Verwendung/sichere-verwendung_node.html',
+        tag: 'Social Media',
+        language: 'German',
+        price: 0,
+        type: 'Website',
+        publisher: 'BSI'
+      },
+      {
+        id: 2,
+        created_at: '2024-06',
+        name: 'Tips for Safe AI Usage',
+        description: 'This practical guide from Germanys Federal Office for Information Security (BSI) offers 11 recommendations for safely using artificial intelligence in everyday life. It covers how AI works, key security risks like errors and fraud, and practical tips including using reputable sources, protecting personal data, and remaining critical of AIs limitations.',
+        link: 'https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/Broschueren/Wegweiser_Checklisten_Flyer/Brosch_A6_Kuenstliche_Intelligenz.pdf?__blob=publicationFile&v=18',
+        tag: 'AI',
+        language: 'German',
+        price: 0,
+        type: 'PDF',
+        publisher: 'BSI'
+      },
+      {
+        id: 3,
+        created_at: '2026-06-10 14:45:00+00',
+        name: 'Data Protection and GDPR – The Basics',
+        description: 'The GDPR regulates the handling of personal data. Learn what rights you have and how companies must protect your data.',
+        link: 'https://www.bsi.bund.de/EN/',
+        tag: 'GDPR',
+        language: 'English',
+        price: 4.5,
+        type: 'Website',
+        publisher: 'BSI'
+      },
+      {
+        id: 4,
+        created_at: '2026-06-08 09:20:00+00',
+        name: 'Is No Password the Best Password? How Passkeys Work',
+        description: 'We can admit: passwords are exhausting. You’re told to create long, unique, and complex passwords for every account. Then you’re expected to remember them all, avoid reusing them, and some websites even follow older advice by forcing you to update them regularly! No wonder so many people fall back on weak, easy-to-remember passwords, or they reuse the same ones over and over again.',
+        link: 'https://www.staysafeonline.org/articles/is-no-password-the-best-password-how-passkeys-work',
+        tag: 'Password',
+        language: 'English',
+        price: 0,
+        type: 'Blog',
+        publisher: 'National Cybersecurity Alliance'
+      },
+      {
+        id: 5,
+        created_at: '2026-05-01 11:30:00+00',
+        name: 'Ransomware Prevention Guide',
+        description: 'Ransomware attacks can paralyze your business. This guide provides strategies to prevent infections, maintain backups, and respond to attacks effectively.',
+        link: 'https://www.cisa.gov/',
+        tag: 'Ransomware',
+        language: 'English',
+        price: 14.99,
+        type: 'Website',
+        publisher: 'CISA'
+      }
+    ];
+
+    // Populate filter dropdowns dynamically based on the data
+    function populateFilters(data) {
+      const tagValues = [...new Set(data.map(row => row.tag).filter(Boolean))].sort();
+      const publisherValues = [...new Set(data.map(row => row.publisher).filter(Boolean))].sort();
+      const languageValues = [...new Set(data.map(row => row.language).filter(Boolean))].sort();
+
+      fillSelect('tag', tagValues, 'All Tags');
+      fillSelect('publisher', publisherValues, 'All Publishers');
+      fillSelect('language', languageValues, 'All Languages');
+    }
+
+    function fillSelect(id, values, allLabel) {
+      const select = document.getElementById(id);
+      const previousValue = select.value;
+      select.innerHTML = `<option value="">${allLabel}</option>` +
+        values.map(v => `<option value="${v}">${v}</option>`).join('');
+      // Restore previous selection if it still exists among the options
+      if (values.includes(previousValue)) {
+        select.value = previousValue;
+      }
+    }
+
+    // Current sort state: which field is active and in which direction
+    let currentSortField = null;
+    let currentSortDirection = 'asc';
+
+    // Called when a table header is clicked
+    function setSort(field) {
+      if (currentSortField === field) {
+        // Same column clicked again -> toggle direction
+        currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSortField = field;
+        currentSortDirection = 'asc';
+      }
+      updateSortArrows();
+      filterContent();
+    }
+
+    // Update the arrow indicators in the table header row
+    function updateSortArrows() {
+      document.querySelectorAll('#tableHead th').forEach(th => {
+        const arrow = th.querySelector('.sort-arrow');
+        if (!arrow) return;
+        if (th.dataset.field === currentSortField) {
+          arrow.textContent = currentSortDirection === 'asc' ? ' ↑' : ' ↓';
+        } else {
+          arrow.textContent = '';
+        }
+      });
+    }
+
+    // Sort an array of rows based on the currently active column and direction
+    function sortData(data) {
+      if (!currentSortField) return data;
+
+      const field = currentSortField;
+      const direction = currentSortDirection;
+
+      const sorted = [...data].sort((a, b) => {
+        let valA = a[field];
+        let valB = b[field];
+
+        if (field === 'created_at') {
+          valA = new Date(valA).getTime();
+          valB = new Date(valB).getTime();
+        } else if (field === 'price') {
+          valA = Number(valA) || 0;
+          valB = Number(valB) || 0;
+        } else {
+          valA = (valA || '').toString().toLowerCase();
+          valB = (valB || '').toString().toLowerCase();
+        }
+
+        if (valA < valB) return direction === 'asc' ? -1 : 1;
+        if (valA > valB) return direction === 'asc' ? 1 : -1;
+        return 0;
+      });
+
+      return sorted;
+    }
+
+    // Track which rows are currently expanded (persists across re-renders)
+    const expandedIds = new Set();
+
+    function toggleExpand(id) {
+      if (expandedIds.has(id)) {
+        expandedIds.delete(id);
+      } else {
+        expandedIds.add(id);
+      }
+      filterContent();
+    }
+
+    function showData(data) {
+      const table = document.getElementById('table');
+      table.innerHTML = '';
+      document.getElementById('count').textContent = data.length;
+
+      if (data.length === 0) {
+        table.innerHTML = '<tr><td colspan="8" class="px-6 py-8 text-center" style="color: #6c6eb6;">No results found</td></tr>';
+        return;
+      }
+
+      data.forEach(row => {
+        const date = new Date(row.created_at).toLocaleDateString('en-US');
+        const price = row.price === 0 || row.price === null || row.price === undefined
+          ? 'Free'
+          : `€${Number(row.price).toFixed(2)}`;
+        const isExpanded = expandedIds.has(row.id);
+
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = isExpanded ? 'none' : '1px solid #66c7f4';
+        tr.className = 'hover:bg-gray-50 transition duration-150 cursor-pointer';
+        tr.onclick = () => toggleExpand(row.id);
+        tr.innerHTML = `
+          <td class="px-4 py-4 text-center">
+            <svg class="inline-block transition-transform duration-200" style="transform: rotate(${isExpanded ? '90deg' : '0deg'});" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 1 L10 6 L2 11 Z" fill="#0f88ff"/>
+            </svg>
+          </td>
+          <td class="px-6 py-4">
+            <span class="font-semibold" style="color: #0f88ff;">${row.name}</span>
+          </td>
+          <td class="px-6 py-4">
+            <span class="inline-block text-xs font-bold px-3 py-1 rounded-full" style="background-color: #b8ff00; color: #000000;">
+              ${row.tag || '–'}
+            </span>
+          </td>
+          <td class="px-6 py-4" style="color: #000000;">${row.language || '–'}</td>
+          <td class="px-6 py-4" style="color: #000000;">${row.publisher || '–'}</td>
+          <td class="px-6 py-4" style="color: #000000;">${price}</td>
+          <td class="px-6 py-4">
+            <a href="${row.link}" target="_blank" onclick="event.stopPropagation()" class="hover:underline font-semibold" style="color: #0f88ff;">
+              🔗 Link
+            </a>
+          </td>
+          <td class="px-6 py-4 text-sm" style="color: #6c6eb6;">${date}</td>
+        `;
+        table.appendChild(tr);
+
+        if (isExpanded) {
+          const detailTr = document.createElement('tr');
+          detailTr.style.borderBottom = '1px solid #66c7f4';
+          detailTr.innerHTML = `
+            <td colspan="8" class="px-6 pb-5 pt-0" style="background-color: #f7faff;">
+              <p class="leading-relaxed" style="color: #000000;">${row.description}</p>
+            </td>
+          `;
+          table.appendChild(detailTr);
+        }
+      });
+    }
+
+    function filterContent() {
+      const search = document.getElementById('search').value.toLowerCase();
+      const tag = document.getElementById('tag').value;
+      const publisher = document.getElementById('publisher').value;
+      const language = document.getElementById('language').value;
+
+      const filtered = allData.filter(row =>
+        (!search || row.name.toLowerCase().includes(search) || row.description.toLowerCase().includes(search)) &&
+        (!tag || row.tag === tag) &&
+        (!publisher || row.publisher === publisher) &&
+        (!language || row.language === language)
+      );
+
+      showData(sortData(filtered));
+    }
+
+    // Filter on every input
+    document.getElementById('search').addEventListener('input', filterContent);
+    document.getElementById('tag').addEventListener('change', filterContent);
+    document.getElementById('publisher').addEventListener('change', filterContent);
+    document.getElementById('language').addEventListener('change', filterContent);
+
+    // Initial setup on load — placed at the end so every function/variable
+    // it depends on (populateFilters, showData, sortData, expandedIds) already exists
+    populateFilters(allData);
+    showData(sortData(allData));
+  </script>
+</body>
+</html>
