@@ -1,0 +1,5 @@
+name = "awareness-website"
+main = "index.html"
+
+[site]
+bucket = "./"
