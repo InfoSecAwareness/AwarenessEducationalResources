@@ -1,5 +1,2 @@
 name = "awareness-website"
-main = "index.html"
-
-[site]
-bucket = "./"
+pages_build_output_dir = "."
