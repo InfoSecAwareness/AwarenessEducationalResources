@@ -3,37 +3,31 @@ name: HTML Quality Check
 on:
   push:
     branches: [ main ]
-    paths: ['*.html']
+    paths:
+      - '**/*.html'
   pull_request:
     branches: [ main ]
 
 jobs:
   quality-check:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
       - name: Install HTML validation tools
-        run: npm install -g @markuplint/cli
-      
+        run: npm install -g markuplint
+
       - name: Run HTML linter
-        run: markuplint '**/*.html' --quiet || echo "::warning::HTML issues found!"
-        
+        run: markuplint "**/*.html" --quiet
+
       - name: Check for broken links (optional)
         uses: lycheeverse/lychee-action@v1
         with:
-          args: --fail --verbose *.html
-        
-      - name: Upload artifact if errors
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lint-report
-          path: .markuplint.json
+          args: --fail --verbose '**/*.html'
